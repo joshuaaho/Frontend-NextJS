@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 import ProductPrice from "./ProductPrice";
 
 test("ProductPrice", () => {
-  render(<ProductPrice price="HKD 32"/>);
-  expect(screen.getByText("HKD 32")).toBeDefined();
+  render(<ProductPrice priceView="32 HKD" />);
+  expect(screen.getByText("32 HKD")).toBeDefined();
 });
+
+
