@@ -56,16 +56,26 @@ export class BubbleTeaService {
   }
 
   public static async addToCart(productId: number) {
-  
-    await db.bubbleTeas.where("id").equals(productId).modify((item) => {
-      item.quantity += 1;
-    });
+    await db.bubbleTeas
+      .where("id")
+      .equals(productId)
+      .modify((item) => {
+        item.quantity += 1;
+      });
   }
 
   public static async removeFromCart(productId: number) {
-  
-    await db.bubbleTeas.where("id").equals(productId).modify((item) => {
-      item.quantity -= 1;
+    await db.bubbleTeas
+      .where("id")
+      .equals(productId)
+      .modify((item) => {
+        item.quantity -= 1;
+      });
+  }
+
+  public static async clearCart() {
+    await db.bubbleTeas.toCollection().modify((item) => {
+      item.quantity = 0;
     });
   }
 }
