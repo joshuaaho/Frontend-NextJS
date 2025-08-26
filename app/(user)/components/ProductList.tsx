@@ -1,55 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { BubbleTeaService } from "@/app/(services)/bubbleTeaService";
+import React from "react";
 import { sortLabels } from "@/app/(user)/utils/labelSorter";
 import { formatLabel } from "@/app/(user)/utils/labelFormatter";
-import { createProductMap } from "@/app/(user)/utils/productMap";
-import { createLabelMap } from "@/app/(user)/utils/labelMap";
+import { useProducts } from "@/app/(user)/contexts/ProductsContext";
 
-import { Button, Container, Box, Typography, Grid } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 import Card from "./ProductCard/Card";
 
 const ProductList = () => {
-  const [products, setProducts] = useState<any>({});
-
-  const [labels, setLabels] = useState<any>({});
-  
-
-  useEffect(() => {
-    BubbleTeaService.getBubbleTeas().then((products) => {
-      const labelMap = createLabelMap(products);
-      const productMap = createProductMap(products);
-
-      setLabels(labelMap);
-      setProducts(productMap);
-    });
-  }, []);
-
-  const handleAddToCart = useCallback(
-    async (productId: number) => {
-      await BubbleTeaService.addToCart(productId);
-      setProducts((prevProducts: any) => ({
-        ...prevProducts ,
-        [productId]: {
-          ...prevProducts[productId],
-          quantity: prevProducts[productId].quantity + 1,
-        },
-      }));
-    },
-    []
-  );
-  const handleRemoveFromCart = useCallback(
-    async (productId: number) => {
-      await BubbleTeaService.removeFromCart(productId);
-      setProducts((prevProducts: any) => ({
-        ...prevProducts,
-        [productId]: {
-          ...prevProducts[productId],
-          quantity: prevProducts[productId].quantity - 1,
-        },
-      }));
-    },
-    []
-  );
+  const { products, labels, handleAddToCart, handleRemoveFromCart } = useProducts();
 
   return (
     <Container
@@ -63,7 +21,6 @@ const ProductList = () => {
       }}
     >
       {sortLabels(Object.keys(labels))
-
         .map((label) => (
           <Box key={label} sx={{ width: "100%", marginBottom: 2 }}>
             <Typography
