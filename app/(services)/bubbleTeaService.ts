@@ -1,5 +1,6 @@
 import { db, type BubbleTea } from "@/dexie/db";
 import data from "../../data/bubbleTeas.json";
+
 export class BubbleTeaService {
   public static async getBubbleTeas() {
     return await db.bubbleTeas.reverse().toArray();
@@ -39,20 +40,34 @@ export class BubbleTeaService {
     });
   }
 
-  public static async listBubbleTea(data: BubbleTea) {
-    // TODO: List one bubble tea
+  public static async listBubbleTea(bubbleTea: BubbleTea) {
+    await db.bubbleTeas
+      .where("id")
+      .equals(bubbleTea.id)
+      .modify((item) => {
+        item.isListed = true;
+      });
   }
 
-  public static async delistBubbleTea(data: BubbleTea) {
-    // TODO: Delist one bubble tea
+  public static async delistBubbleTea(bubbleTea: BubbleTea) {
+    await db.bubbleTeas
+      .where("id")
+      .equals(bubbleTea.id)
+      .modify((item) => {
+        item.isListed = false;
+      });
   }
 
   public static async listAllBubbleTea() {
-    // TODO: List all bubble teas
+    await db.bubbleTeas.toCollection().modify((item) => {
+      item.isListed = true;
+    });
   }
 
   public static async delistAllBubbleTea() {
-    // TODO: Delist all bubble teas
+    await db.bubbleTeas.toCollection().modify((item) => {
+      item.isListed = false;
+    });
   }
 
   public static async addToCart(productId: number) {
