@@ -5,6 +5,7 @@ import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useEffect } from 'react';
 import { BubbleTeaService } from '../(services)/bubbleTeaService';
+import ProductList from './components/ProductList';
 
 export default function UserPage() {
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function UserPage() {
           </Button>
         </Toolbar>
       </AppBar>
+      <ProductList />
     </Container>
   );
 }
