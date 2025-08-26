@@ -57,7 +57,14 @@ const ProductList = () => {
 
   return (
     <Container
-      sx={{ display: "flex", flexWrap: "wrap", gap: 2, marginTop: 10 }}
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 2,
+        marginTop: 10,
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+      }}
     >
       {sortLabels(Object.keys(labels))
 
