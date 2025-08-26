@@ -20,7 +20,6 @@ const Card =
     handleAddToCart,
     handleRemoveFromCart,
   }: CardProps) => {
-    console.log("dskd");
     return (
       <Box
         key={bubbleTea.id}
@@ -34,7 +33,7 @@ const Card =
           style={{ width: "200px", height: "200px", objectFit: "cover" }}
         />
         <ProductName name={bubbleTea.name} />
-        <ProductPrice priceView={formatPrice(bubbleTea.price, bubbleTea.currency)} />
+        <ProductPrice price={formatPrice(bubbleTea.price, bubbleTea.currency)} />
         {bubbleTea.quantity > 0 && <ProductQuantity quantity={bubbleTea.quantity} />}
       <Button
                     variant="contained"
