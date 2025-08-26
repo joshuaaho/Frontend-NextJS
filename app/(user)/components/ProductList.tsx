@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BubbleTeaService } from "@/app/(services)/bubbleTeaService";
-import ProductName from "./ProductCard/ProductName/ProductName";
-import { Container, Box, Button } from "@mui/material";
-import ProductPrice from "./ProductCard/ProductPrice/ProductPrice";
-import ProductQuantity from "./ProductCard/ProductQuantity/ProductQuantity";
-import Image from "next/image";
-import { formatPrice } from "../utils/priceFormatter";
-import { BubbleTea } from "../../../dexie/db";
+import { sortLabels } from "@/app/(user)/utils/labelSorter";
+import { formatLabel } from "@/app/(user)/utils/labelFormatter";
 
+import { Button, Container, Box, Typography, Grid } from "@mui/material";
+import Card from "./ProductCard/Card";
 
-const ALT_TEXT = "Coming soon";
 const ProductList = () => {
-  const [products, setProducts] = useState<any>([]);
+  const [products, setProducts] = useState<any>({});
+
+  const [labels, setLabels] = useState<any>({});
 
   useEffect(() => {
     BubbleTeaService.getBubbleTeas().then((products) => {
-      setProducts(products);
+      const labels: any = {};
+      const productMap: any = {};
+      for (const product of products) {
+        productMap[product.id] = product;
+        console.log(product);
+        for (const label of product.labels) {
+          labels[label] = [...(labels[label] || []), product.id];
+        }
+      }
+
+      setLabels(labels);
+      setProducts(productMap);
     });
   }, []);
 
@@ -36,36 +45,41 @@ const ProductList = () => {
     <Container
       sx={{ display: "flex", flexWrap: "wrap", gap: 2, marginTop: 10 }}
     >
-      {products.map((product: BubbleTea) => (
-        <Box key={product.id} sx={{ border: 1, borderColor: 'grey.300', p: 2, borderRadius: 1 }}>
-          <Image src={`/${product.assetPath}`} alt={ALT_TEXT} width={200} height={200} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
-          <ProductName name={product.name} />
-          <ProductPrice priceView={formatPrice(product.price, product.currency)} />
-          {product.quantity > 0 && <ProductQuantity quantity={product.quantity} />}
-          <Button 
-            variant="contained" 
-            sx={{ 
-              backgroundColor: 'primary.main',
-              width: '100%',
-              mt: 1
-            }}
-            onClick={() => handleAddToCart(product.id)}
-          >
-            Add To Cart
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "primary.main",
-              width: "100%",
-              mt: 1,
-            }}
-            onClick={() => handleRemoveFromCart(product.id)}
-          >
-            Remove From Cart
-          </Button>
-        </Box>
-      ))}
+      {sortLabels(Object.keys(labels))
+
+        .map((label) => (
+          <Box key={label} sx={{ width: "100%", marginBottom: 2 }}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+                marginBottom: 1,
+                color: "#333",
+              }}
+            >
+              {formatLabel(label)}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 2,
+                justifyContent: "flex-start",
+              }}
+            >
+              {labels[label].map((productId: number) => (
+                <Box key={productId}>
+                  <Card
+                    bubbleTea={products[productId]}
+                    handleAddToCart={handleAddToCart}
+                    handleRemoveFromCart={handleRemoveFromCart}
+                  />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        ))}
     </Container>
   );
 };
