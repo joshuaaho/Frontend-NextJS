@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import { BubbleTeaService } from "@/app/(services)/bubbleTeaService";
 import { sortLabels } from "@/app/(user)/utils/labelSorter";
 import { formatLabel } from "@/app/(user)/utils/labelFormatter";
+import { createProductMap } from "@/app/(user)/utils/productMap";
+import { createLabelMap } from "@/app/(user)/utils/labelMap";
 
 import { Button, Container, Box, Typography, Grid } from "@mui/material";
 import Card from "./ProductCard/Card";
@@ -10,20 +12,14 @@ const ProductList = () => {
   const [products, setProducts] = useState<any>({});
 
   const [labels, setLabels] = useState<any>({});
+  
 
   useEffect(() => {
     BubbleTeaService.getBubbleTeas().then((products) => {
-      const labels: any = {};
-      const productMap: any = {};
-      for (const product of products) {
-        productMap[product.id] = product;
-        console.log(product);
-        for (const label of product.labels) {
-          labels[label] = [...(labels[label] || []), product.id];
-        }
-      }
+      const labelMap = createLabelMap(products);
+      const productMap = createProductMap(products);
 
-      setLabels(labels);
+      setLabels(labelMap);
       setProducts(productMap);
     });
   }, []);
