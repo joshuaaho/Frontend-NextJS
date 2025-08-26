@@ -28,18 +28,32 @@ const ProductList = () => {
     });
   }, []);
 
-  const handleAddToCart = async (productId: number) => {
-    await BubbleTeaService.addToCart(productId);
-    const updatedProducts = await BubbleTeaService.getBubbleTeas();
-    setProducts(updatedProducts);
-  };
-
-  const handleRemoveFromCart = async (productId: number) => {
-    await BubbleTeaService.removeFromCart(productId);
-    const updatedProducts = await BubbleTeaService.getBubbleTeas();
-    setProducts(updatedProducts);
-  };
-
+  const handleAddToCart = useCallback(
+    async (productId: number) => {
+      await BubbleTeaService.addToCart(productId);
+      setProducts((prevProducts: any) => ({
+        ...prevProducts ,
+        [productId]: {
+          ...prevProducts[productId],
+          quantity: prevProducts[productId].quantity + 1,
+        },
+      }));
+    },
+    []
+  );
+  const handleRemoveFromCart = useCallback(
+    async (productId: number) => {
+      await BubbleTeaService.removeFromCart(productId);
+      setProducts((prevProducts: any) => ({
+        ...prevProducts,
+        [productId]: {
+          ...prevProducts[productId],
+          quantity: prevProducts[productId].quantity - 1,
+        },
+      }));
+    },
+    []
+  );
 
   return (
     <Container
