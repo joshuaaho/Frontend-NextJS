@@ -38,7 +38,7 @@ export default function UserPage() {
             sx={{ borderColor: "white", color: "white" }}
             onClick={() => setInShoppingCart((prev) => !prev)}
           >
-            {inShoppingCart ? "Cart" : "Home"}
+            {inShoppingCart ? "Home" : "Cart"}
           </Button>
         </Toolbar>
       </AppBar>
