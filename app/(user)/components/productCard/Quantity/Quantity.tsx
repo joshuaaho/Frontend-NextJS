@@ -16,7 +16,7 @@ export default function Quantity({ quantity }: QuantityProps) {
       minHeight: '24px', 
       display: 'flex', 
       alignItems: 'center', 
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       width: '100%'
     }}>
 
