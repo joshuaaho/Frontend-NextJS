@@ -34,7 +34,7 @@ export default function UserPage() {
           </Typography>
           <Button
             variant="outlined"
-            endIcon={inShoppingCart ? <ShoppingCartIcon /> : <HomeIcon />}
+            endIcon={inShoppingCart ?  <HomeIcon /> : <ShoppingCartIcon />}
             sx={{ borderColor: "white", color: "white" }}
             onClick={() => setInShoppingCart((prev) => !prev)}
           >
