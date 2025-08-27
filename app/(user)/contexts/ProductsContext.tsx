@@ -6,6 +6,7 @@ import { createLabelMap } from "@/app/(user)/utils/labelMap";
 interface ProductsContextType {
   products: any;
   labels: any;
+  setProducts: (products: any) => void;
   handleAddToCart: (productId: number) => Promise<void>;
   handleRemoveFromCart: (productId: number) => Promise<void>;
 }
@@ -30,11 +31,13 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
 
   useEffect(() => {
     BubbleTeaService.getBubbleTeas().then((products) => {
-      const labelMap = createLabelMap(products);
-      const productMap = createProductMap(products);
+      const listedProducts = products.filter((product: any) => product.isListed); 
+      
+      const labelMap = createLabelMap(listedProducts);
+      const productMap = createProductMap(listedProducts);
 
       setLabels(labelMap);
-      setProducts(productMap);
+      setProducts(productMap); 
     });
   }, []);
 
@@ -67,6 +70,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
   );
 
   const value: ProductsContextType = {
+    setProducts,
     products,
     labels,
     handleAddToCart,
