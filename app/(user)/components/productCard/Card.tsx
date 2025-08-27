@@ -43,11 +43,12 @@ const Card = memo(
         />
         <Name name={bubbleTea.name} />
         <Description description={bubbleTea.description} />
+        <Box sx={{ flexGrow: 1 }} />
         <Price
           price={formatPrice(bubbleTea.price, bubbleTea.currency)}
         />
         <Quantity quantity={bubbleTea.quantity} />
-        <Box sx={{ flexGrow: 1 }} />
+     
         <Button
           variant="contained"
           sx={{
