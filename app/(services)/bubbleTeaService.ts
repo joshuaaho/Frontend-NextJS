@@ -23,7 +23,7 @@ export class BubbleTeaService {
     this.getBubbleTeas().then(async (array) => {
       if (!array.length) {
         for (const item of data) {
-          console.log(item);
+
           await db.bubbleTeas.put({
             id: item.id,
             name: item.name,
