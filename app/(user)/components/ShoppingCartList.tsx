@@ -67,7 +67,7 @@ const ShoppingCartList = ({
         ))}
       </Box>
 
-      {/* {cartProducts.length > 0 && (
+      {cartProducts.length > 0 && (
         <Box sx={{ width: "100%", marginTop: 3, textAlign: "center" }}>
           <Button
             variant="contained"
@@ -83,7 +83,7 @@ const ShoppingCartList = ({
             Submit Order
           </Button>
         </Box>
-      )} */}
+      )}
     </Container>
   );
 };
