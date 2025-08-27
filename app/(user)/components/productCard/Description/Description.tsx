@@ -1,11 +1,11 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
-type ProductDescriptionProps = {
+type DescriptionProps = {
   description: string;
 };
 
-export default function ProductDescription({ description }: ProductDescriptionProps) {
+export default function Description({ description }: DescriptionProps) {
   return (
     <Typography
       variant="body2"

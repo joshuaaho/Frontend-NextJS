@@ -1,9 +1,9 @@
 import { expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import ProductPrice from "./ProductPrice";
+import Price from "./Price";
 
-test("ProductPrice", () => {
-  render(<ProductPrice price="32 HKD" />);
+test("Price", () => {
+  render(<Price price="32 HKD" />);
   expect(screen.getByText("32 HKD")).toBeDefined();
 });
 

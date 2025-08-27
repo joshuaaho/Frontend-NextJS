@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import { Box, Button } from "@mui/material";
 import Image from "next/image";
-import ProductName from "./ProductName/ProductName";
-import ProductPrice from "./ProductPrice/ProductPrice";
-import ProductQuantity from "./ProductQuantity/ProductQuantity";
+import Name from "./Name/Name";
+import Price from "./Price/Price";
+import Quantity from "./Quantity/Quantity";
 import { BubbleTea } from "../../../../dexie/db";
 import { formatPrice } from "../../utils/priceFormatter";
 import ImageWithFallback from "./ImageWithFallback";
-import ProductDescription from "./ProductDescription/ProductDescription";
+import Description from "./Description/Description";
 
 const ALT_TEXT = "Coming soon";
 type CardProps = {
@@ -41,12 +41,12 @@ const Card = memo(
           style={{ width: "100%", height: "200px", objectFit: "cover" }}
           fallbackSrc="/No_Image_Available.webp"
         />
-        <ProductName name={bubbleTea.name} />
-        <ProductDescription description={bubbleTea.description} />
-        <ProductPrice
+        <Name name={bubbleTea.name} />
+        <Description description={bubbleTea.description} />
+        <Price
           price={formatPrice(bubbleTea.price, bubbleTea.currency)}
         />
-        <ProductQuantity quantity={bubbleTea.quantity} />
+        <Quantity quantity={bubbleTea.quantity} />
         <Box sx={{ flexGrow: 1 }} />
         <Button
           variant="contained"

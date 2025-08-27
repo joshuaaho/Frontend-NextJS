@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-type ProductQuantityProps = {
+type QuantityProps = {
   quantity: number;
 };
 
-export default function ProductQuantity({ quantity }: ProductQuantityProps) {
+export default function Quantity({ quantity }: QuantityProps) {
 
   if (quantity === 0) {
     return null;
