@@ -57,6 +57,9 @@ export default function UserPage() {
         autoHideDuration={6000}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
+        {/* Hard coded message for now, I'm aware that it's not good practice */}
+
+
         <Alert severity="success" onClose={() => setOpenToast(false)}>
           Order submitted successfully! Your cart has been cleared.
         </Alert>
