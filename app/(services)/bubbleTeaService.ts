@@ -23,19 +23,11 @@ export class BubbleTeaService {
 
     const bubbleTeas = await this.getBubbleTeas();
     if (!bubbleTeas.length) {
-      for (const item of data) {
-          await db.bubbleTeas.put({
-            id: item.id,
-            name: item.name,
-            isListed: true,
-            price: item.price,
-            assetPath: item.assetPath,
-            description: item.description,
-            currency: item.currency,
-            labels: item.labels,
-            quantity: 0,
-          });
-      }
+      await db.bubbleTeas.bulkAdd(data.map((item) => ({
+        ...item,
+        isListed: true,
+        quantity: 0,
+      })));
     }
   }
 
