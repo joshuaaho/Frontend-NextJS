@@ -18,10 +18,7 @@ import ShoppingCartList from "./components/ShoppingCartList";
 import HomeIcon from "@mui/icons-material/Home";
 
 export default function UserPage() {
-  useEffect(() => {
-    BubbleTeaService.insertIfEmpty();
-  }, []);
-
+ 
   const [openToast, setOpenToast] = useState(false);
 
   const [inShoppingCart, setInShoppingCart] = useState(false);

@@ -30,15 +30,25 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
   const [labels, setLabels] = useState<any>({});
 
   useEffect(() => {
-    BubbleTeaService.getBubbleTeas().then((products) => {
+
+    async function fetchProducts() {
+
+      // Insert data from JSON file to DB
+      await BubbleTeaService.insertIfEmpty();
+
+      // Get products from DB and place them in the state
+      BubbleTeaService.getBubbleTeas().then((products) => {
       const listedProducts = products.filter((product: any) => product.isListed); 
       
       const labelMap = createLabelMap(listedProducts);
       const productMap = createProductMap(listedProducts);
 
       setLabels(labelMap);
-      setProducts(productMap); 
-    });
+        setProducts(productMap); 
+      });
+    }
+
+    fetchProducts();
   }, []);
 
   const handleAddToCart = useCallback(

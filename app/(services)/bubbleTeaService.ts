@@ -13,17 +13,17 @@ export class BubbleTeaService {
       .filter((field) => typeof field === "string");
   }
 
-  public static insertIfEmpty() {
+  public static async insertIfEmpty() {
     // TODO: Load all bubble tea data from JSON file
     // this.getBubbleTeas().then(async (array) => {
     //   if (!array.length) {
     //     await db.bubbleTeas.put({ id: 99, name: 'Test Tea', isListed: true });
     //   }
     // });
-    this.getBubbleTeas().then(async (array) => {
-      if (!array.length) {
-        for (const item of data) {
 
+    const bubbleTeas = await this.getBubbleTeas();
+    if (!bubbleTeas.length) {
+      for (const item of data) {
           await db.bubbleTeas.put({
             id: item.id,
             name: item.name,
@@ -35,9 +35,8 @@ export class BubbleTeaService {
             labels: item.labels,
             quantity: 0,
           });
-        }
       }
-    });
+    }
   }
 
   public static async listBubbleTea(bubbleTea: BubbleTea) {
