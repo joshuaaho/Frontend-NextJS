@@ -1,12 +1,4 @@
-# Bubble Tea Web Interview Exercise Template
 
-## Overview
-
-This template provides a starting point for the bubble tea web interview exercise. Applicants are encouraged to make any necessary adjustments. The solution will be evaluated based on:
-
-- Feature completion
-- Code quality
-- Performance
 
 ## Tech Stack
 
@@ -75,6 +67,3 @@ This template provides a starting point for the bubble tea web interview exercis
 /public # Assets
 ```
 
-## Notes
-
-Feel free to modify this template as needed to best showcase your skills and approach to the problem.
